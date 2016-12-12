@@ -147,6 +147,7 @@ public class PlateauModel {
                         LigneTrain ligne1 = new LigneTrain();
                         int[] dclt = {x-1, y};
                         ligne1.ajouterALigne(dclt);
+                        lignes.add(ligne1);
                         while(RailAdjacent(dclt) == 2) {
                             int[] caseSuivante = ligneTrainCaseSuivante(dclt);
                             ligne1.ajouterALigne(caseSuivante);
@@ -178,30 +179,26 @@ public class PlateauModel {
     public int[] ligneTrainCaseSuivante(int[] pair) {
         int x = pair[0];
         int y = pair[1];
-        if((board[x-1][y] == 2) && (x-1 != 2) && (y != 2)) {
-            int[] pair = {x, y};
-            ligne1.ajouterALigne(pair);
-            x--;
-            casePrecedente = board[x-1][y];
+        int[] temp = {0,0};
+        for(LigneTrain l : lignes){
+            if((board[x-1][y] == 2) && (!l.contains(pair))) {
+                temp[0] = x-1;
+                temp[1] = y;
+            }
+            if((board[x+1][y] == 2) && (!l.contains(pair))) {
+                temp[0] = x+1;
+                temp[1] = y;
+            }
+            if((board[x][y-1] == 2) && (!l.contains(pair))) {
+                temp[0] = x;
+                temp[1] = y-1;
+            }
+            if((board[x][y+1] == 2) && (!l.contains(pair))) {
+                temp[0] = x;
+                temp[1] = y+1;
+            }
         }
-        if((board[x+1][y] == 2) && (board[x+1][y] != casePrecedente)) {
-            int[] pair = {x, y};
-            ligne1.ajouterALigne(pair);
-            x++;
-            casePrecedente = board[x+1][y];
-        }
-        if((board[x][y-1] == 2) && (board[x][y-1] != casePrecedente)) {
-            int[] pair = {x, y};
-            ligne1.ajouterALigne(pair);
-            y--;
-            casePrecedente = board[x][y-1];
-        }
-        if((board[x][y+1] == 2) && (board[x][y+1] != casePrecedente)) {
-            int[] pair = {x, y};
-            ligne1.ajouterALigne(pair);
-            y++;
-            casePrecedente = board[x][y+1];
-        }
+        return temp;
     }
     
     @Override

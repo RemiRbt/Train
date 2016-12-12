@@ -31,6 +31,20 @@ public class LigneTrain {
         ligneFinie = true;
     }
     
+    public boolean contains(int[] pair) {
+        int x = pair[0];
+        int y = pair[1];
+        boolean temp = false;
+        for(int i = 0; i < ligneTrain.size(); i++){
+            if((ligneTrain.get(i)[0] == x) && (ligneTrain.get(i)[1] == y)) {
+                temp = true;
+            } else {
+                temp = false;
+            }
+        }
+        return temp;
+    }
+    
     @Override
     public String toString() {
         String temp = "";
