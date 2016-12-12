@@ -35,7 +35,7 @@ public class LigneTrain {
     public String toString() {
         String temp = "";
         for(int i = 0; i < ligneTrain.size(); i++){
-            temp += ligneTrain.get(i)[0] + ", " + ligneTrain.get(i)[1];
+            temp += "Case " + i + ": " + ligneTrain.get(i)[0] + ", " + ligneTrain.get(i)[1];
             temp += "\n";
         }
         return temp;

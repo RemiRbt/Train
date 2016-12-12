@@ -143,29 +143,64 @@ public class PlateauModel {
                 if(board[i][j] == 1) {
                     int x = i;
                     int y = j;
-                    int[] casePrecedente = {0,0};
-                    if ((board[x-1][y] == 2)) {
-                        System.out.println("Case bonne : " + (x-1) + ", " + y + "#1");
-                        int[] pair = {x-1, y};
-                        casePrecedente = pair;
-                        x = x-1;
-                        while((board[x-1][y] == 2 && (x != casePrecedente[0] && y != casePrecedente[1])) || (board[x+1][y] == 2 && (x != casePrecedente[0] && y != casePrecedente[1])) || (board[x][y-1] == 2 && (x != casePrecedente[0] && y != casePrecedente[1])) || (board[x][y+1] == 2 && (x != casePrecedente[0] && y != casePrecedente[1]))) {
-                            System.out.println("Case bonne : #2");
-                            if ((board[x-1][y] == 2)) {
-                                int[] pair2 = {x-1, y};
-                                casePrecedente = pair2;
-                                System.out.println("Case bonne : " + (x-1) + ", " + y + "#3");
-                                x = x-1;
-                                System.out.println(casePrecedente[0] + " " + casePrecedente[1]);
-                            }
+                    if (board[x-1][y] == 2) {
+                        LigneTrain ligne1 = new LigneTrain();
+                        int[] dclt = {x-1, y};
+                        ligne1.ajouterALigne(dclt);
+                        while(RailAdjacent(dclt) == 2) {
+                            int[] caseSuivante = ligneTrainCaseSuivante(dclt);
+                            ligne1.ajouterALigne(caseSuivante);
+                            dclt = caseSuivante;
                         }
+                        lignes.add(ligne1);
                     }
-                    /*while((board[x-1][y] == 2 && board[x-1][y] != board[casePrecedente[0]][casePrecedente[1]]) || (board[x+1][y] == 2 && board[x+1][y] != board[casePrecedente[0]][casePrecedente[1]]) || (board[x][y-1] == 2 && board[x][y-1] != board[casePrecedente[0]][casePrecedente[1]]) || (board[x][y+1] == 2 && board[x][y+1] != board[casePrecedente[0]][casePrecedente[1]])) {
-                        
-                        
-                    }*/
                 }
             }
+        }
+    }
+    
+    public int RailAdjacent(int[] pair) {
+        int x = pair[0];
+        int y = pair[1];
+        if(board[x-1][y] == 2) {
+            return board[x-1][y];
+        } else if(board[x+1][y] == 2) {
+            return board[x+1][y];
+        } else if(board[x][y-1] == 2) {
+            return board[x][y-1];
+        }else if(board[x][y+1] == 2) {
+            return board[x][y+1];
+        } else {
+            return 0;
+        }
+    }
+    
+    public int[] ligneTrainCaseSuivante(int[] pair) {
+        int x = pair[0];
+        int y = pair[1];
+        if((board[x-1][y] == 2) && (x-1 != 2) && (y != 2)) {
+            int[] pair = {x, y};
+            ligne1.ajouterALigne(pair);
+            x--;
+            casePrecedente = board[x-1][y];
+        }
+        if((board[x+1][y] == 2) && (board[x+1][y] != casePrecedente)) {
+            int[] pair = {x, y};
+            ligne1.ajouterALigne(pair);
+            x++;
+            casePrecedente = board[x+1][y];
+        }
+        if((board[x][y-1] == 2) && (board[x][y-1] != casePrecedente)) {
+            int[] pair = {x, y};
+            ligne1.ajouterALigne(pair);
+            y--;
+            casePrecedente = board[x][y-1];
+        }
+        if((board[x][y+1] == 2) && (board[x][y+1] != casePrecedente)) {
+            int[] pair = {x, y};
+            ligne1.ajouterALigne(pair);
+            y++;
+            casePrecedente = board[x][y+1];
         }
     }
     
