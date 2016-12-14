@@ -38,19 +38,24 @@ public class LigneTrain {
         for(int i = 0; i < ligneTrain.size(); i++){
             if((ligneTrain.get(i)[0] == x) && (ligneTrain.get(i)[1] == y)) {
                 temp = true;
-            } else {
-                temp = false;
             }
         }
         return temp;
+    }
+    
+    public int[] getFirst () {
+        return ligneTrain.get(0);
+    }
+    
+    public int[] getLast () {
+        return ligneTrain.get(ligneTrain.size() - 1);
     }
     
     @Override
     public String toString() {
         String temp = "";
         for(int i = 0; i < ligneTrain.size(); i++){
-            temp += "Case " + i + ": " + ligneTrain.get(i)[0] + ", " + ligneTrain.get(i)[1];
-            temp += "\n";
+            temp += "Case " + i + ": " + ligneTrain.get(i)[0] + ", " + ligneTrain.get(i)[1] + " | ";
         }
         return temp;
     }

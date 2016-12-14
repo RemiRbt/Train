@@ -134,10 +134,16 @@ public class PlateauModel {
                     }
                 }
             }
-        }
+        }/*
+        for(LigneTrain l : lignes){
+            if(l.ligneFinie == true) {
+                board[l.getFirst()[0]][l.getFirst()[1]] = 3;
+            }
+        }*/
     }
     
     public void ligneTrain() {
+        lignes.clear();
         for(int i=0;i<tailleX;i++){
             for(int j=0;j<tailleY;j++){
                 //si case est une ville
@@ -150,11 +156,15 @@ public class PlateauModel {
                         int[] dclt = {x-1, y};
                         ligne1.ajouterALigne(dclt);
                         lignes.add(ligne1);
-                        while(RailAdjacent(dclt) == 2) {
-                            int[] caseSuivante = ligneTrainCaseSuivante(dclt);
+                        while(RailAdjacent(dclt, ligne1) == 2) {
+                            int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
                             ligne1.ajouterALigne(caseSuivante);
+                            lignes.remove(lignes.get(lignes.size() - 1));
                             lignes.add(ligne1);
                             dclt = caseSuivante;
+                            if(ligneTrainFinie(ligne1)) {
+                                ligne1.ligneFinie();
+                            }
                         }
                     }
                 }
@@ -162,43 +172,62 @@ public class PlateauModel {
         }
     }
     
-    public int RailAdjacent(int[] pair) {
+    public int RailAdjacent(int[] pair, LigneTrain lt) {
         int x = pair[0];
         int y = pair[1];
+        int[] nextPairTop = {x-1, y}; 
+        int[] nextPairBottom = {x+1, y}; 
+        int[] nextPairLeft = {x, y-1}; 
+        int[] nextPairRight = {x, y+1}; 
         int temp = 0;
-        for(LigneTrain l : lignes){
-            if((board[x-1][y] == 2) && (!l.contains(pair))) {
-                temp = board[x-1][y];
-            } else if((board[x+1][y] == 2) && (!l.contains(pair))) {
-                temp = board[x+1][y];
-            } else if((board[x][y-1] == 2) && (!l.contains(pair))) {
-                temp = board[x][y-1];
-            } else if((board[x][y+1] == 2) && (!l.contains(pair))) {
-                temp = board[x][y+1];
-            }
+        if((board[x-1][y] == 2) && (!lt.contains(nextPairTop))) {
+            temp = board[x-1][y];
+        } else if((board[x+1][y] == 2) && (!lt.contains(nextPairBottom))) {
+            temp = board[x+1][y];
+        } else if((board[x][y-1] == 2) && (!lt.contains(nextPairLeft))) {
+            temp = board[x][y-1];
+        } else if((board[x][y+1] == 2) && (!lt.contains(nextPairRight))) {
+            temp = board[x][y+1];
         }
+        
         return temp;
     }
     
-    public int[] ligneTrainCaseSuivante(int[] pair) {
+    public int[] ligneTrainCaseSuivante(int[] pair, LigneTrain lt) {
         int x = pair[0];
         int y = pair[1];
-        int[] temp = {1,1};
-        for(LigneTrain l : lignes){
-            if((board[x-1][y] == 2) && (!l.contains(pair))) {
-                temp[0] = x-1;
-                temp[1] = y;
-            } else if((board[x+1][y] == 2) && (!l.contains(pair))) {
-                temp[0] = x+1;
-                temp[1] = y;
-            } else if((board[x][y-1] == 2) && (!l.contains(pair))) {
-                temp[0] = x;
-                temp[1] = y-1;
-            } else if((board[x][y+1] == 2) && (!l.contains(pair))) {
-                temp[0] = x;
-                temp[1] = y+1;
-            }
+        int[] nextPairTop = {x-1, y}; 
+        int[] nextPairBottom = {x+1, y}; 
+        int[] nextPairLeft = {x, y-1}; 
+        int[] nextPairRight = {x, y+1}; 
+        int[] temp = {1,8};
+        if((board[x-1][y] == 2) && (!lt.contains(nextPairTop))) {
+            temp = nextPairTop;
+        } else if((board[x+1][y] == 2) && (!lt.contains(nextPairBottom))) {
+            temp = nextPairBottom;
+        } else if((board[x][y-1] == 2) && (!lt.contains(nextPairLeft))) {
+            temp = nextPairLeft;
+        } else if((board[x][y+1] == 2) && (!lt.contains(nextPairRight))) {
+            temp = nextPairRight;
         }
+        
+        return temp;
+    }
+    
+    public boolean ligneTrainFinie(LigneTrain lt) {
+        int x = lt.getLast()[0];
+        int y = lt.getLast()[1];
+        boolean temp = false;
+        if (board[x-1][y] == 1) {
+            temp = true;
+        } else if (board[x+1][y] == 1) {
+            temp = true;
+        } else if (board[x][y-1] == 1) {
+            temp = true;
+        } else if (board[x][y+1] == 1) {
+            temp = true;
+        }
+        
         return temp;
     }
     
@@ -221,8 +250,11 @@ public class PlateauModel {
         }
         int nbTemp = 0;
         for(LigneTrain l : lignes){
-            nbTemp++;
-            temp += "Ligne de train : " + nbTemp + " | " + l.toString();
+            if(l.ligneFinie == true) {
+                nbTemp++;
+                temp += "Ligne de train finie: " + nbTemp + " | " + l.toString();
+                temp += "\n";
+            }
         }
         return temp;
     }
