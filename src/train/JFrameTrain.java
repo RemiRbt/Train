@@ -5,7 +5,10 @@
  */
 package train;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -34,6 +37,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     public JFrameTrain(PlateauModel _model) {
         model = _model;
         initComponents();
+        
+        jLabel2.setText("00:00");
         
         jeuPanel.setLayout(new java.awt.GridLayout(10, 20));
         
@@ -106,6 +111,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     private void initComponents() {
 
         jeuPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 600));
@@ -121,8 +128,10 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
         );
         jeuPanelLayout.setVerticalGroup(
             jeuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
+
+        jLabel1.setText("Timer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,14 +140,23 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jeuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(707, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jeuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2))
+                    .addComponent(jeuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,11 +192,11 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new JFrameTrain().setVisible(true);
                 PlateauModel model = new PlateauModel();
                 
                 JFrameTrain instance1 = new JFrameTrain(model);
                 instance1.setVisible(true);
+                instance1.setExtendedState(JFrame.MAXIMIZED_BOTH); 
                 model.register(instance1);
                 model.nouvellePartie();
                 System.out.print(model.toString());
@@ -187,6 +205,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jeuPanel;
     // End of variables declaration//GEN-END:variables
 
