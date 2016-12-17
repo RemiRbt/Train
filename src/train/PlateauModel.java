@@ -6,8 +6,10 @@
 package train;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  *
@@ -75,8 +77,8 @@ public class PlateauModel {
     public void action(CaseControler c) {
         board[c.getX()][c.getY()] = c.getType();
         updatePlateau();
-        avertirAllObservateurs();
         ligneTrain();
+        avertirAllObservateurs();
     }
     
     public void updatePlateau() {
@@ -86,19 +88,19 @@ public class PlateauModel {
                 if(board[i][j] == 2) {
                     int[] adjacents = new int[4];
                     int adjacentCompt = 0;  
-                    if((board[i-1][j] == 2) || (board[i-1][j] == 1)) {
+                    if((board[i-1][j] == 2) || (board[i-1][j] == 1) || (board[i-1][j] == 3)) {
                         adjacents[0] = 1;
                         adjacentCompt++;
                     }
-                    if((board[i+1][j] == 2) || (board[i+1][j] == 1)) {
+                    if((board[i+1][j] == 2) || (board[i+1][j] == 1) || (board[i+1][j] == 3)) {
                         adjacents[1] = 1;
                         adjacentCompt++;
                     }
-                    if((board[i][j-1] == 2) || (board[i][j-1] == 1)) {
+                    if((board[i][j-1] == 2) || (board[i][j-1] == 1) || (board[i][j-1] == 3)) {
                         adjacents[2] = 1;
                         adjacentCompt++;
                     }
-                    if((board[i][j+1] == 2) || (board[i][j+1] == 1)) {
+                    if((board[i][j+1] == 2) || (board[i][j+1] == 1) || (board[i][j+1] == 3)) {
                         adjacents[3] = 1;
                         adjacentCompt++;
                     }
@@ -129,17 +131,12 @@ public class PlateauModel {
                 }
                 // retirer case grise si plus de rail autour
                 if(board[i][j] == 9) {
-                    if((board[i-1][j] != 2) && (board[i+1][j] != 2) && (board[i][j-1] != 2) && (board[i][j+1] != 2)) {
+                    if((board[i-1][j] != 2) && (board[i+1][j] != 2) && (board[i][j-1] != 2) && (board[i][j+1] != 2) && (board[i-1][j] != 3) && (board[i+1][j] != 3) && (board[i][j-1] != 3) && (board[i][j+1] != 3)) {
                         board[i][j] = 0;
                     }
                 }
             }
-        }/*
-        for(LigneTrain l : lignes){
-            if(l.ligneFinie == true) {
-                board[l.getFirst()[0]][l.getFirst()[1]] = 3;
-            }
-        }*/
+        }
     }
     
     public void ligneTrain() {
@@ -151,23 +148,90 @@ public class PlateauModel {
                     int x = i;
                     int y = j;
                     // dclt = dernière case ligne train
-                    if (board[x-1][y] == 2) {
-                        LigneTrain ligne1 = new LigneTrain();
-                        int[] dclt = {x-1, y};
-                        ligne1.ajouterALigne(dclt);
-                        lignes.add(ligne1);
-                        while(RailAdjacent(dclt, ligne1) == 2) {
-                            int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
-                            ligne1.ajouterALigne(caseSuivante);
-                            lignes.remove(lignes.get(lignes.size() - 1));
+                    if ((board[x-1][y] == 2) || (board[x-1][y] == 3)) {
+                        int[] testPair = {x-1, y};
+                        if(!autreLigneContains(testPair)) {
+                            LigneTrain ligne1 = new LigneTrain();
+                            int[] dclt = {x-1, y};
+                            ligne1.ajouterALigne(dclt);
                             lignes.add(ligne1);
-                            dclt = caseSuivante;
-                            if(ligneTrainFinie(ligne1)) {
-                                ligne1.ligneFinie();
+                            while(RailAdjacent(dclt, ligne1) == 2) {
+                                int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
+                                ligne1.ajouterALigne(caseSuivante);
+                                lignes.remove(lignes.get(lignes.size() - 1));
+                                lignes.add(ligne1);
+                                dclt = caseSuivante;
+                                if(ligneTrainFinie(ligne1)) {
+                                    ligne1.ligneFinie();
+                                }
+                            }
+                        }
+                    }
+                    if ((board[x+1][y] == 2) || (board[x+1][y] == 3)) {
+                        int[] testPair = {x+1, y};
+                        if(!autreLigneContains(testPair)) {
+                            LigneTrain ligne1 = new LigneTrain();
+                            int[] dclt = {x+1, y};
+                            ligne1.ajouterALigne(dclt);
+                            lignes.add(ligne1);
+                            while(RailAdjacent(dclt, ligne1) == 2) {
+                                int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
+                                ligne1.ajouterALigne(caseSuivante);
+                                lignes.remove(lignes.get(lignes.size() - 1));
+                                lignes.add(ligne1);
+                                dclt = caseSuivante;
+                                if(ligneTrainFinie(ligne1)) {
+                                    ligne1.ligneFinie();
+                                }
+                            }
+                        }
+                    }
+                    if ((board[x][y-1] == 2) || (board[x][y-1] == 3)) {
+                        int[] testPair = {x, y-1};
+                        if(!autreLigneContains(testPair)) {
+                            LigneTrain ligne1 = new LigneTrain();
+                            int[] dclt = {x, y-1};
+                            ligne1.ajouterALigne(dclt);
+                            lignes.add(ligne1);
+                            while(RailAdjacent(dclt, ligne1) == 2) {
+                                int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
+                                ligne1.ajouterALigne(caseSuivante);
+                                lignes.remove(lignes.get(lignes.size() - 1));
+                                lignes.add(ligne1);
+                                dclt = caseSuivante;
+                                if(ligneTrainFinie(ligne1)) {
+                                    ligne1.ligneFinie();
+                                }
+                            }
+                        }
+                    }
+                    if ((board[x][y+1] == 2) || (board[x][y+1] == 3)) {
+                        int[] testPair = {x, y+1};
+                        if(!autreLigneContains(testPair)) {
+                            LigneTrain ligne1 = new LigneTrain();
+                            int[] dclt = {x, y+1};
+                            ligne1.ajouterALigne(dclt);
+                            lignes.add(ligne1);
+                            while(RailAdjacent(dclt, ligne1) == 2) {
+                                int[] caseSuivante = ligneTrainCaseSuivante(dclt, ligne1);
+                                ligne1.ajouterALigne(caseSuivante);
+                                lignes.remove(lignes.get(lignes.size() - 1));
+                                lignes.add(ligne1);
+                                dclt = caseSuivante;
+                                if(ligneTrainFinie(ligne1)) {
+                                    ligne1.ligneFinie();
+                                }
                             }
                         }
                     }
                 }
+            }
+        }
+        for(LigneTrain l : lignes){
+            if(l.ligneFinie == true) {
+                board[l.getFirst()[0]][l.getFirst()[1]] = 3;
+            } else {
+                board[l.getFirst()[0]][l.getFirst()[1]] = 2;
             }
         }
     }
@@ -211,6 +275,16 @@ public class PlateauModel {
             temp = nextPairRight;
         }
         
+        return temp;
+    }
+    
+    public boolean autreLigneContains(int[] pair) {
+        boolean temp = false;
+        for(LigneTrain l : lignes){
+            if(l.contains(pair)) {
+                temp = true;
+            }
+        }
         return temp;
     }
     
