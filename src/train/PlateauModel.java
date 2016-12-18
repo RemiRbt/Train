@@ -6,6 +6,7 @@
 package train;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  *
@@ -18,11 +19,16 @@ public class PlateauModel {
     
     ArrayList<Observateur> observation;
     ArrayList<LigneTrain> lignes;
+    ArrayList<Train> train;
     
     public PlateauModel() {
         board = new int[tailleX][tailleY];
         observation = new ArrayList<Observateur>();
         lignes = new ArrayList<LigneTrain>();
+        train = new ArrayList<Train>();
+        
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTrain(this), 0,1000);
     }
     
     void register(Observateur o) {
@@ -225,9 +231,8 @@ public class PlateauModel {
         }
         for(LigneTrain l : lignes){
             if(l.ligneFinie == true) {
-                board[l.getFirst()[0]][l.getFirst()[1]] = 3;
-            } else {
-                board[l.getFirst()[0]][l.getFirst()[1]] = 2;
+                Train t1 = new Train(l);
+                train.add(t1);
             }
         }
     }
@@ -301,16 +306,17 @@ public class PlateauModel {
         return temp;
     }
     
+    public void trainAvance() {
+        for(Train t : train){
+            for(int i = 0; i < t.ligne.ligneTrain.size(); i++){
+                board[t.ligne.ligneTrain.get(i)[0]][t.ligne.ligneTrain.get(i)[1]] = 2;
+            }
+            board[t.pairPosition[0]][t.pairPosition[1]] = 3;
+        }
+    }
+    
     @Override
-    public String toString() {
-        /*LigneTrain ligne1 = new LigneTrain();
-        int[] pair1 = {8, 6};
-        int[] pair2 = {1, 7};
-        ligne1.ajouterALigne(pair1);
-        ligne1.ajouterALigne(pair2);
-        ligne1.ligneFinie();
-        lignes.add(ligne1);*/
-        
+    public String toString() {        
         String temp = "";
         for(int i=0;i<tailleX;i++){
             for(int j=0;j<tailleY;j++){
