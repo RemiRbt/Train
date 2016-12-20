@@ -20,12 +20,14 @@ public class PlateauModel {
     ArrayList<Observateur> observation;
     ArrayList<LigneTrain> lignes;
     ArrayList<Train> train;
+    ArrayList<Ville> villes;
     
     public PlateauModel() {
         board = new int[tailleX][tailleY];
         observation = new ArrayList<Observateur>();
         lignes = new ArrayList<LigneTrain>();
         train = new ArrayList<Train>();
+        villes = new ArrayList<Ville>();
         
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTrain(this), 0, 1000);
@@ -63,9 +65,17 @@ public class PlateauModel {
             }
         }
         action(new CaseControler(this, 3, 5, 1));
+        Ville ville1 = new Ville(3, 5);
+        villes.add(ville1);
         action(new CaseControler(this, 5, 10, 1));
+        Ville ville2 = new Ville(5, 10);
+        villes.add(ville2);
         action(new CaseControler(this, 2, 12, 1));
+        Ville ville3 = new Ville(2, 12);
+        villes.add(ville3);
         action(new CaseControler(this, 7, 16, 1));
+        Ville ville4 = new Ville(7, 16);
+        villes.add(ville4);
         action(new CaseControler(this, 1, 0, 8));
         action(new CaseControler(this, 1, 1, 8));
         action(new CaseControler(this, 1, 2, 8));
