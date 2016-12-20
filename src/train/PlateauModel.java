@@ -28,7 +28,8 @@ public class PlateauModel {
         train = new ArrayList<Train>();
         
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTrain(this), 0,1000);
+        timer.scheduleAtFixedRate(new TimerTrain(this), 0, 1000);
+        timer.scheduleAtFixedRate(new TimerMonstre(this), 0, 1000);
     }
     
     void register(Observateur o) {
@@ -72,6 +73,9 @@ public class PlateauModel {
         action(new CaseControler(this, 6, 4, 8));
         action(new CaseControler(this, 3, 8, 8));
         action(new CaseControler(this, 3, 9, 8));
+        
+        //monstre
+        //action(new CaseControler(this, 4, 3, 4));
         
         avertirNewGameAllObservateurs();
     }
@@ -146,6 +150,10 @@ public class PlateauModel {
         train.clear();
         for(int i=0;i<tailleX;i++){
             for(int j=0;j<tailleY;j++){
+                //remplace les train par des rails = on enleve les trains
+                if(board[i][j] == 3) {
+                    board[i][j] = 2;
+                }
                 //si case est une ville
                 if(board[i][j] == 1) {
                     int x = i;
@@ -313,6 +321,22 @@ public class PlateauModel {
                 board[t.ligne.ligneTrain.get(i)[0]][t.ligne.ligneTrain.get(i)[1]] = 2;
             }
             board[t.pairPosition[0]][t.pairPosition[1]] = 3;
+        }
+    }
+    
+    public void monstreAvance() {
+        for(int i=0;i<tailleX;i++){
+            for(int j=0;j<tailleY;j++){
+                int x = i;
+                int y = j;
+                if(board[x][y] == 4) {
+                    
+                    //wtf -y marche mais +y fait tout bugger
+                    board[x][y+1] = 4;
+                    board[x][y] = 0;
+                    
+                }
+            }
         }
     }
     
