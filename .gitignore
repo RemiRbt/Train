@@ -1,4 +1,7 @@
 #Mes fichiers/dossiers exlus
+nbproject/private/
 build/
-test/
-nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
