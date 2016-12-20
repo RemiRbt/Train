@@ -65,16 +65,16 @@ public class PlateauModel {
             }
         }
         action(new CaseControler(this, 3, 5, 1));
-        Ville ville1 = new Ville(3, 5);
+        Ville ville1 = new Ville(3, 5, 1, 10);
         villes.add(ville1);
         action(new CaseControler(this, 5, 10, 1));
-        Ville ville2 = new Ville(5, 10);
+        Ville ville2 = new Ville(5, 10, 2, 10);
         villes.add(ville2);
         action(new CaseControler(this, 2, 12, 1));
-        Ville ville3 = new Ville(2, 12);
+        Ville ville3 = new Ville(2, 12, 3, 10);
         villes.add(ville3);
         action(new CaseControler(this, 7, 16, 1));
-        Ville ville4 = new Ville(7, 16);
+        Ville ville4 = new Ville(7, 16, 4, 10);
         villes.add(ville4);
         action(new CaseControler(this, 1, 0, 8));
         action(new CaseControler(this, 1, 1, 8));
