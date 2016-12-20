@@ -47,6 +47,6 @@ Temporary Items
 .apdisk
 
 #Mes fichiers/dossiers exlus
-build/*
-test/*
-nbproject/*
+build/
+test/
+nbproject/
