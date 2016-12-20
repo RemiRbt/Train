@@ -1,4 +1,4 @@
 #Mes fichiers/dossiers exlus
 build/
 test/
-nbproject/project.xml
+nbproject/
