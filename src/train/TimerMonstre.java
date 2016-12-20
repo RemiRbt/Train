@@ -11,21 +11,17 @@ import java.util.TimerTask;
  *
  * @author remir
  */
-public class TimerTrain extends TimerTask {
+public class TimerMonstre extends TimerTask {
     
     PlateauModel model;
 
-    public TimerTrain(PlateauModel m) {
+    public TimerMonstre(PlateauModel m) {
         model = m;
     }
     
     @Override
     public void run() {
-        model.trainAvance();
-        for(Train t : model.train){
-            t.nextPair();
-        }
-        System.out.print(model.toString());
+        model.monstreAvance();
         model.avertirAllObservateurs();
     }
 }
