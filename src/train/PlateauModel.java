@@ -143,7 +143,7 @@ public class PlateauModel {
     
     public void ligneTrain() {
         lignes.clear();
-        //train.clear();
+        train.clear();
         for(int i=0;i<tailleX;i++){
             for(int j=0;j<tailleY;j++){
                 //si case est une ville
