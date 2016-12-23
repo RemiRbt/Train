@@ -20,6 +20,7 @@ public class CaseControler extends MouseAdapter {
     int type;
     /*
     types :
+    7 : nenuphar
     8 : non-constructible
     9 : adjacent ville(non contru)
     0 : rien

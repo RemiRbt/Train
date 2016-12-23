@@ -19,11 +19,24 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
 
     private static final ImageIcon BLANC = new ImageIcon("./src/imgs/blanc.png");
     private static final ImageIcon MONTAGNE = new ImageIcon("./src/imgs/montagne.png");
+    private static final ImageIcon NENUPHAR = new ImageIcon("./src/imgs/nenuphar.png");
     private static final ImageIcon NONCONSTRU = new ImageIcon("./src/imgs/gris.png");
-    private static final ImageIcon MONSTRE = new ImageIcon("./src/imgs/monstre.gif");
+    private static final ImageIcon MONSTRE = new ImageIcon("./src/imgs/monstre.png");
     private static final ImageIcon VILLE = new ImageIcon("./src/imgs/ville.png");
+    
     private static final ImageIcon TRAIN = new ImageIcon("./src/imgs/train.png");
+    private static final ImageIcon TRAIN2 = new ImageIcon("./src/imgs/train2.png");
+    private static final ImageIcon TRAIN3 = new ImageIcon("./src/imgs/train3.png");
+    private static final ImageIcon TRAIN4 = new ImageIcon("./src/imgs/train4.png");
+    private static final ImageIcon TRAIN5 = new ImageIcon("./src/imgs/train5.png");
+    private static final ImageIcon TRAIN6 = new ImageIcon("./src/imgs/train6.png");
+    
     private static final ImageIcon RAIL = new ImageIcon("./src/imgs/rail.png");
+    private static final ImageIcon RAIL2 = new ImageIcon("./src/imgs/rail2.png");
+    private static final ImageIcon RAIL3 = new ImageIcon("./src/imgs/rail3.png");
+    private static final ImageIcon RAIL4 = new ImageIcon("./src/imgs/rail4.png");
+    private static final ImageIcon RAIL5 = new ImageIcon("./src/imgs/rail5.png");
+    private static final ImageIcon RAIL6 = new ImageIcon("./src/imgs/rail6.png");
     
     final int tailleX = 10;
     final int tailleY = 20;
@@ -31,9 +44,6 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     
     PlateauModel model;
     
-    /**
-     * Creates new form JFrameTrain
-     */
     public JFrameTrain(PlateauModel _model) {
         model = _model;
         initComponents();
@@ -70,13 +80,16 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
                         jboard[i][j].setIcon(VILLE);
                         break;
                     case 2:
-                        jboard[i][j].setIcon(RAIL);
+                        calculRail(i, j);
                         break;
                     case 3:
-                        jboard[i][j].setIcon(TRAIN);
+                        calculTrain(i, j);
                         break;
                     case 4:
                         jboard[i][j].setIcon(MONSTRE);
+                        break;
+                    case 7:
+                        jboard[i][j].setIcon(NENUPHAR);
                         break;
                     case 8:
                         jboard[i][j].setIcon(MONTAGNE);
@@ -88,6 +101,42 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
                         break;
                 }
             }
+        }
+    }
+    
+    public void calculRail(int i, int j) {
+        if (((model.board[i+1][j] >= 1) && (model.board[i+1][j] <= 3)) && ((model.board[i][j+1] >= 1) && (model.board[i][j+1] <= 3))) {
+            jboard[i][j].setIcon(RAIL3);
+        } else if (((model.board[i+1][j] >= 1) && (model.board[i+1][j] <= 3)) && ((model.board[i][j-1] >= 1) && (model.board[i][j-1] <= 3))) {
+            jboard[i][j].setIcon(RAIL4);
+        } else if (((model.board[i-1][j] >= 1) && (model.board[i-1][j] <= 3)) && ((model.board[i][j-1] >= 1) && (model.board[i][j-1] <= 3))) {
+            jboard[i][j].setIcon(RAIL5);
+        } else if (((model.board[i-1][j] >= 1) && (model.board[i-1][j] <= 3)) && ((model.board[i][j+1] >= 1) && (model.board[i][j+1] <= 3))) {
+            jboard[i][j].setIcon(RAIL6);
+        } else if (((model.board[i][j-1] >= 1) && (model.board[i][j-1] <= 3)) || ((model.board[i][j+1] >= 1) && (model.board[i][j+1] <= 3))) {
+            jboard[i][j].setIcon(RAIL);
+        } else if (((model.board[i-1][j] >= 1) && (model.board[i-1][j] <= 3)) || ((model.board[i+1][j] >= 1) && (model.board[i+1][j] <= 3))) {
+            jboard[i][j].setIcon(RAIL2);
+        } else {
+            jboard[i][j].setIcon(RAIL);
+        }
+    }
+    
+    public void calculTrain(int i, int j) {
+        if (((model.board[i+1][j] == 2) || (model.board[i+1][j] == 1)) && ((model.board[i][j+1] == 2) | (model.board[i][j+1] == 1))) {
+            jboard[i][j].setIcon(TRAIN3);
+        } else if (((model.board[i+1][j] == 2) || (model.board[i+1][j] == 1)) && ((model.board[i][j-1] == 2) || (model.board[i][j-1] == 1))) {
+            jboard[i][j].setIcon(TRAIN4);
+        } else if (((model.board[i-1][j] == 2) || (model.board[i-1][j] == 1)) && ((model.board[i][j-1] == 2) || (model.board[i][j-1] == 1))) {
+            jboard[i][j].setIcon(TRAIN5);
+        } else if (((model.board[i-1][j] == 2) || (model.board[i-1][j] == 1)) && ((model.board[i][j+1] == 2) || (model.board[i][j+1] == 1))) {
+            jboard[i][j].setIcon(TRAIN6);
+        } else if (((model.board[i][j-1] == 2) || (model.board[i][j-1] == 1)) || ((model.board[i][j+1] == 2) || (model.board[i][j+1] == 1))) {
+            jboard[i][j].setIcon(TRAIN);
+        } else if (((model.board[i-1][j] == 2) || (model.board[i-1][j] == 1)) || ((model.board[i+1][j] == 2) || (model.board[i+1][j] == 1))) {
+            jboard[i][j].setIcon(TRAIN2);
+        } else {
+            jboard[i][j].setIcon(TRAIN);
         }
     }
     

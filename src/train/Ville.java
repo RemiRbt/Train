@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 public class Ville {
     
+    PlateauModel model;
+    
     int x;
     int y;
     int[] stockBase = {0, 0, 0, 0, 0};
@@ -27,7 +29,8 @@ public class Ville {
     4: 
     */
     
-    public Ville(int _x, int _y, int _production, int _debit) {
+    public Ville(PlateauModel m, int _x, int _y, int _production, int _debit) {
+        model = m;
         x = _x;
         y = _y;
         stock = stockBase;
@@ -36,7 +39,11 @@ public class Ville {
     }
     
     public void creerProduit() {
-        
+        if((stock[0] >= 100) &&(stock[1] >= 50)) {
+            model.produitFini[0]++;
+            stock[0] -= 100;
+            stock[1] -= 50;
+        }
     }
     
     public void productionMP() {
