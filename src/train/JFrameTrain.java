@@ -6,7 +6,6 @@
 package train;
 
 import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,12 +42,13 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     JLabel[][] jboard;
     
     PlateauModel model;
-    
+        
     public JFrameTrain(PlateauModel _model) {
         model = _model;
         initComponents();
         
-        jLabel2.setText("00:00");
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerVue(this, model), 0, 1000);
         
         jeuPanel.setLayout(new java.awt.GridLayout(10, 20));
         
@@ -160,11 +160,12 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     private void initComponents() {
 
         jeuPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 600));
 
         jeuPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jeuPanel.setMinimumSize(new java.awt.Dimension(600, 400));
@@ -180,7 +181,11 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
             .addGap(0, 398, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Timer");
+        jLabel1.setText("Ressources:");
+
+        jLabel3.setText("Villes | Fer | Bois | Laine | Redstone | Pierre");
+
+        jLabel4.setText("ressources");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,11 +194,15 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jeuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(707, Short.MAX_VALUE))
+                    .addComponent(jLabel4))
+                .addContainerGap(539, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,8 +211,15 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
                     .addComponent(jeuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -256,6 +272,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jeuPanel;
     // End of variables declaration//GEN-END:variables
 

@@ -46,8 +46,30 @@ public class Ville {
         }
     }
     
-    public void productionMP() {
+    public void production() {
         stock[production] += debit;
+    }
+    
+    public int totalStock() {
+        int temp = 0;
+        for(int i = 0; i < stock.length ; i++) {
+            temp += stock[i];
+        }
+        return temp;
+    }
+    
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    @Override
+    public String toString() {
+        String temp = "Stock: " + stock[0] + ", " + stock[1] + ", " + stock[2] + ", " + stock[3] + ", " + stock[4] + "\n";
+        return temp;
     }
     
 }

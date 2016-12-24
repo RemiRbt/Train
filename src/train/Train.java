@@ -16,11 +16,17 @@ public class Train {
     int[] pairPosition;
     int lastPosition;
     
+    int[] stockBase = {0, 0, 0, 0, 0};
+    int[] stock;
+    int maxStock = 200;
+    
     public Train(LigneTrain l) {
         ligne = l;
         position = 0;
         int[] firstPair = {ligne.ligneTrain.get(0)[0], ligne.ligneTrain.get(0)[1]};
         pairPosition = firstPair;
+        
+        stock = stockBase;
     }
     
     public void nextPosition() {

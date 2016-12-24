@@ -69,19 +69,19 @@ public class PlateauModel {
             }
         }
         action(new CaseControler(this, 3, 5, 1));
-        Ville ville1 = new Ville(this, 3, 5, 1, 10);
+        Ville ville1 = new Ville(this, 3, 5, 0, 10);
         villes.add(ville1);
         action(new CaseControler(this, 5, 10, 1));
-        Ville ville2 = new Ville(this, 5, 10, 2, 10);
+        Ville ville2 = new Ville(this, 5, 10, 1, 10);
         villes.add(ville2);
         action(new CaseControler(this, 2, 12, 1));
-        Ville ville3 = new Ville(this, 2, 12, 3, 10);
+        Ville ville3 = new Ville(this, 2, 12, 2, 10);
         villes.add(ville3);
         action(new CaseControler(this, 7, 16, 1));
-        Ville ville4 = new Ville(this, 7, 16, 4, 10);
+        Ville ville4 = new Ville(this, 7, 16, 3, 10);
         villes.add(ville4);
         action(new CaseControler(this, 8, 3, 1));
-        Ville ville5 = new Ville(this, 8, 3, 5, 10);
+        Ville ville5 = new Ville(this, 8, 3, 4, 10);
         villes.add(ville5);
         action(new CaseControler(this, 1, 0, 8));
         action(new CaseControler(this, 1, 1, 8));
@@ -356,6 +356,99 @@ public class PlateauModel {
             }
         }
     }
+    
+    public void actionTrainVille() {
+        //pour chaque train
+        for(Train t : train){
+            // si adjacent a une ville
+            if(board[t.pairPosition[0]-1][t.pairPosition[1]] == 1) {
+                //récupération de la ville
+                Ville w = getVilleByPosition(t.pairPosition[0]-1, t.pairPosition[1]);
+                //on décharge le train (pour chaque MP -> on copie dans le stock de la ville puis on supprime)
+                for(int i = 0; i < t.stock.length ; i++) {
+                    w.stock[i] += t.stock[i];
+                    t.stock[i] = 0;
+                }
+                int prorata = t.maxStock / w.totalStock();
+                for(int i = 0; i < w.stock.length ; i++) {
+                    if(prorata < 1) {
+                        t.stock[i] += w.stock[i] * prorata;
+                        w.stock[i] -= w.stock[i] * prorata;
+                    } else {
+                        t.stock[i] += w.stock[i];
+                        w.stock[i] = 0;
+                    }
+                }
+            }
+            if(board[t.pairPosition[0]+1][t.pairPosition[1]] == 1) {
+                //récupération de la ville
+                Ville w = getVilleByPosition(t.pairPosition[0]+1, t.pairPosition[1]);
+                //on décharge le train (pour chaque MP -> on copie dans le stock de la ville puis on supprime)
+                for(int i = 0; i < t.stock.length ; i++) {
+                    w.stock[i] += t.stock[i];
+                    t.stock[i] = 0;
+                }
+                int prorata = t.maxStock / w.totalStock();
+                for(int i = 0; i < w.stock.length ; i++) {
+                    if(prorata < 1) {
+                        t.stock[i] += w.stock[i] * prorata;
+                        w.stock[i] -= w.stock[i] * prorata;
+                    } else {
+                        t.stock[i] += w.stock[i];
+                        w.stock[i] = 0;
+                    }
+                }
+            }
+            if(board[t.pairPosition[0]][t.pairPosition[1]-1] == 1) {
+                //récupération de la ville
+                Ville w = getVilleByPosition(t.pairPosition[0], t.pairPosition[1]-1);
+                //on décharge le train (pour chaque MP -> on copie dans le stock de la ville puis on supprime)
+                for(int i = 0; i < t.stock.length ; i++) {
+                    w.stock[i] += t.stock[i];
+                    t.stock[i] = 0;
+                }
+                int prorata = t.maxStock / w.totalStock();
+                for(int i = 0; i < w.stock.length ; i++) {
+                    if(prorata < 1) {
+                        t.stock[i] += w.stock[i] * prorata;
+                        w.stock[i] -= w.stock[i] * prorata;
+                    } else {
+                        t.stock[i] += w.stock[i];
+                        w.stock[i] = 0;
+                    }
+                }
+            }
+            if(board[t.pairPosition[0]][t.pairPosition[1]+1] == 1) {
+                //récupération de la ville
+                Ville w = getVilleByPosition(t.pairPosition[0], t.pairPosition[1]+1);
+                //on décharge le train (pour chaque MP -> on copie dans le stock de la ville puis on supprime)
+                for(int i = 0; i < t.stock.length ; i++) {
+                    w.stock[i] += t.stock[i];
+                    t.stock[i] = 0;
+                }
+                int prorata = t.maxStock / w.totalStock();
+                for(int i = 0; i < w.stock.length ; i++) {
+                    if(prorata < 1) {
+                        t.stock[i] += w.stock[i] * prorata;
+                        w.stock[i] -= w.stock[i] * prorata;
+                    } else {
+                        t.stock[i] += w.stock[i];
+                        w.stock[i] = 0;
+                    }
+                }
+            }
+        }
+    }
+    
+    public Ville getVilleByPosition(int x, int y) {
+        Ville temp = null;
+        for(Ville v : villes){
+            if((v.getX() == x) && (v.getY() == y)) {
+                temp = v;
+            }
+        }
+        return temp;
+    }    
     
     @Override
     public String toString() {        

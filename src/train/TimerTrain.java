@@ -21,6 +21,11 @@ public class TimerTrain extends TimerTask {
     
     @Override
     public void run() {
+        for(Ville t : model.villes){
+            t.production();
+            System.out.print(t.toString());
+        }
+        model.actionTrainVille();
         model.trainAvance();
         for(Train t : model.train){
             t.nextPair();
