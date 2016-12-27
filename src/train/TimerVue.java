@@ -27,8 +27,11 @@ public class TimerVue extends TimerTask {
         for(Ville t : model.villes){
             temp += t.toString();
             temp += "<br>";
+            t.creerProduit();
         }
         temp += "</html>";
         vue.jLabel4.setText(temp);
+        String tempProduitFini = model.produitFini[0] + ", " + model.produitFini[1] + ", " + model.produitFini[2] + ", " + model.produitFini[3];
+        vue.jLabel6.setText(tempProduitFini);
     }
 }

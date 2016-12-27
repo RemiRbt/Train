@@ -26,7 +26,7 @@ public class Ville {
     1: fer
     2: laine
     3: redstone
-    4: 
+    4: pierre
     */
     
     public Ville(PlateauModel m, int _x, int _y, int _production, int _debit) {
@@ -39,10 +39,25 @@ public class Ville {
     }
     
     public void creerProduit() {
-        if((stock[0] >= 100) &&(stock[1] >= 50)) {
+        if((stock[0] >= 100) && (stock[1] >= 300)) {
             model.produitFini[0]++;
             stock[0] -= 100;
-            stock[1] -= 50;
+            stock[1] -= 300;
+        }
+        if((stock[1] >= 100) && (stock[2] >= 250)) {
+            model.produitFini[1]++;
+            stock[1] -= 100;
+            stock[2] -= 250;
+        }
+        if((stock[0] >= 50) && (stock[3] >= 300)) {
+            model.produitFini[2]++;
+            stock[0] -= 50;
+            stock[3] -= 300;
+        }
+        if((stock[3] >= 150) && (stock[4] >= 300)) {
+            model.produitFini[0]++;
+            stock[3] -= 100;
+            stock[4] -= 300;
         }
     }
     
