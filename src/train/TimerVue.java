@@ -33,5 +33,10 @@ public class TimerVue extends TimerTask {
         vue.jLabel4.setText(temp);
         String tempProduitFini = model.produitFini[0] + ", " + model.produitFini[1] + ", " + model.produitFini[2] + ", " + model.produitFini[3];
         vue.jLabel6.setText(tempProduitFini);
+        String tempMonstre = "";
+        for(Monstre m : model.monstres){
+            tempMonstre += m.hp;
+        }
+        vue.jLabel9.setText(tempMonstre);
     }
 }

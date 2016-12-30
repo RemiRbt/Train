@@ -22,7 +22,7 @@ public class CaseControler extends MouseAdapter {
     types :
     7 : nenuphar
     8 : non-constructible
-    9 : adjacent ville(non contru)
+    9 : terre(non contru)
     0 : rien
     1 : ville
     2 : rail
@@ -48,6 +48,13 @@ public class CaseControler extends MouseAdapter {
             type = 0;
             model.action(this);
             System.out.print(model.toString());
+        } else if (model.board[x][y] == 4) {
+            for(Monstre m : model.monstres){
+                if((x == m.getX()) && (y == m.getY())) {
+                    m.hp--;
+                }
+            }
+            model.actionMonstre();
         }
     }
     

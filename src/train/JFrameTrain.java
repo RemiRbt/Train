@@ -167,6 +167,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +198,10 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
 
         jLabel7.setText("Epée | Lit | Boussole | Piston");
 
+        jLabel8.setText("HP du monstre :");
+
+        jLabel9.setText("monstre");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,7 +219,9 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
                 .addContainerGap(539, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -238,7 +246,11 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6)
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -295,6 +307,8 @@ public class JFrameTrain extends javax.swing.JFrame implements Observateur {
     private javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jeuPanel;
     // End of variables declaration//GEN-END:variables
 

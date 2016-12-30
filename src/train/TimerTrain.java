@@ -30,6 +30,7 @@ public class TimerTrain extends TimerTask {
         for(Train t : model.train){
             t.nextPair();
         }
+        model.updatePlateau();
         System.out.print(model.toString());
         model.avertirAllObservateurs();
     }

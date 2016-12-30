@@ -23,6 +23,7 @@ public class PlateauModel {
     ArrayList<LigneTrain> lignes;
     ArrayList<Train> train;
     ArrayList<Ville> villes;
+    ArrayList<Monstre> monstres;
     
     public PlateauModel() {
         board = new int[tailleX][tailleY];
@@ -30,12 +31,13 @@ public class PlateauModel {
         lignes = new ArrayList<LigneTrain>();
         train = new ArrayList<Train>();
         villes = new ArrayList<Ville>();
+        monstres = new ArrayList<Monstre>();
         
         produitFini = produitDepart;
         
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTrain(this), 0, 1000);
-        timer.scheduleAtFixedRate(new TimerMonstre(this), 0, 1000);
+        timer.scheduleAtFixedRate(new TimerMonstre(this), 0, 500);
     }
     
     void register(Observateur o) {
@@ -92,7 +94,9 @@ public class PlateauModel {
         action(new CaseControler(this, 3, 9, 8));
         
         //monstre
-        //action(new CaseControler(this, 4, 3, 4));
+        action(new CaseControler(this, 1, 18, 4));
+        Monstre monstre = new Monstre(this, 1, 18);
+        monstres.add(monstre);
         
         avertirNewGameAllObservateurs();
     }
@@ -342,17 +346,22 @@ public class PlateauModel {
     }
     
     public void monstreAvance() {
-        for(int i=0;i<tailleX;i++){
-            for(int j=0;j<tailleY;j++){
-                int x = i;
-                int y = j;
-                if(board[x][y] == 4) {
-                    
-                    //wtf -y marche mais +y fait tout bugger
-                    board[x][y+1] = 4;
-                    board[x][y] = 0;
-                    
+        for(Monstre m : monstres){
+            if(m.actionFaite == true) {
+                board[m.pairPosition[0]][m.pairPosition[1]] = 4;
+                board[m.pairLastPosition[0]][m.pairLastPosition[1]] = 0;
+                if(m.adjacentRail == true) {
+                    ligneTrain();
                 }
+            }
+        }
+    }
+    
+    public void actionMonstre() {
+        for(Monstre m : monstres){
+            if(m.hp == 0) {
+                board[m.pairPosition[0]][m.pairPosition[1]] = 0;
+                monstres.remove(m);
             }
         }
     }
