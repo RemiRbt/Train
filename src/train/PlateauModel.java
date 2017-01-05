@@ -12,8 +12,11 @@ import java.util.Timer;
  *
  * @author remir
  */
+
+//initialisation de la class PlateauModel
 public class PlateauModel {
     int[][] board;
+    //taille en abscisse et ordonnée
     final int tailleX = 10;
     final int tailleY = 20;
     int[] produitDepart = {0, 0, 0, 0};
@@ -35,11 +38,14 @@ public class PlateauModel {
         
         produitFini = produitDepart;
         
+        //2 timers
         Timer timer = new Timer();
+        //schedule = tache
         timer.scheduleAtFixedRate(new TimerTrain(this), 0, 1000);
-        timer.scheduleAtFixedRate(new TimerMonstre(this), 0, 500);
+        timer.scheduleAtFixedRate(new TimerMonstre(this), 0, 800);
     }
     
+    //pour mvc
     void register(Observateur o) {
         observation.add(o);
     }
@@ -48,6 +54,7 @@ public class PlateauModel {
         observation.remove(o);
     }
     
+    //action sur la vue
     void avertirAllObservateurs() {
         for(Observateur o : observation){
             o.avertir();
@@ -71,19 +78,19 @@ public class PlateauModel {
             }
         }
         action(new CaseControler(this, 3, 5, 1));
-        Ville ville1 = new Ville(this, 3, 5, 0, 10);
+        Ville ville1 = new Ville(this, 3, 5, 0, 50);
         villes.add(ville1);
         action(new CaseControler(this, 5, 10, 1));
-        Ville ville2 = new Ville(this, 5, 10, 1, 10);
+        Ville ville2 = new Ville(this, 5, 10, 1, 50);
         villes.add(ville2);
         action(new CaseControler(this, 2, 12, 1));
-        Ville ville3 = new Ville(this, 2, 12, 2, 10);
+        Ville ville3 = new Ville(this, 2, 12, 2, 50);
         villes.add(ville3);
         action(new CaseControler(this, 7, 16, 1));
-        Ville ville4 = new Ville(this, 7, 16, 3, 10);
+        Ville ville4 = new Ville(this, 7, 16, 3, 50);
         villes.add(ville4);
         action(new CaseControler(this, 8, 3, 1));
-        Ville ville5 = new Ville(this, 8, 3, 4, 10);
+        Ville ville5 = new Ville(this, 8, 3, 4, 50);
         villes.add(ville5);
         action(new CaseControler(this, 1, 0, 8));
         action(new CaseControler(this, 1, 1, 8));
@@ -101,6 +108,7 @@ public class PlateauModel {
         avertirNewGameAllObservateurs();
     }
     
+    //appelé au clic
     public void action(CaseControler c) {
         board[c.getX()][c.getY()] = c.getType();
         updatePlateau();

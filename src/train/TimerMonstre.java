@@ -32,7 +32,8 @@ public class TimerMonstre extends TimerTask {
         if(nbMonstre == 0) {
             compteur++;
         }
-        if((compteur >= 20) && (nbMonstre == 0)) {
+        if((compteur >= 38) && (nbMonstre == 0)) {
+            //recreer un monstre
             model.action(new CaseControler(model, 1, 18, 4));
             Monstre monstre = new Monstre(model, 1, 18);
             model.monstres.add(monstre);

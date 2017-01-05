@@ -12,6 +12,8 @@ import java.awt.event.MouseEvent;
  *
  * @author remir
  */
+
+// extends MouseAdapter pour utilisation MouseClicked
 public class CaseControler extends MouseAdapter {
     
     PlateauModel model;

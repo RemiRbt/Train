@@ -21,6 +21,11 @@ public class Ville {
     int[] stock;
     int production;
     int debit;
+    boolean prio1 = false;
+    boolean prio2 = false;
+    boolean prio3 = false;
+    boolean prio4 = false;
+    boolean prio5 = false;
     /*
     0: bois
     1: fer
@@ -39,25 +44,51 @@ public class Ville {
     }
     
     public void creerProduit() {
-        if((stock[0] >= 100) && (stock[1] >= 300)) {
-            model.produitFini[0]++;
-            stock[0] -= 100;
-            stock[1] -= 300;
-        }
-        if((stock[1] >= 100) && (stock[2] >= 250)) {
-            model.produitFini[1]++;
-            stock[1] -= 100;
-            stock[2] -= 250;
-        }
-        if((stock[0] >= 50) && (stock[3] >= 300)) {
-            model.produitFini[2]++;
-            stock[0] -= 50;
-            stock[3] -= 300;
-        }
-        if((stock[3] >= 150) && (stock[4] >= 300)) {
-            model.produitFini[0]++;
-            stock[3] -= 100;
-            stock[4] -= 300;
+        if(prio1 == true) {
+            if((stock[0] >= 100) && (stock[1] >= 300)) {
+                model.produitFini[0]++;
+                stock[0] -= 100;
+                stock[1] -= 300;
+            }
+        } else if (prio2 == true) {
+            if((stock[1] >= 100) && (stock[2] >= 250)) {
+                model.produitFini[1]++;
+                stock[1] -= 100;
+                stock[2] -= 250;
+            }
+        } else if (prio3 == true) {
+            if((stock[0] >= 50) && (stock[3] >= 300)) {
+                model.produitFini[2]++;
+                stock[0] -= 50;
+                stock[3] -= 300;
+            }
+        } else if (prio4 == true) {
+            if((stock[3] >= 150) && (stock[4] >= 300)) {
+                model.produitFini[0]++;
+                stock[3] -= 100;
+                stock[4] -= 300;
+            }
+        } else if(prio5 == true) {
+            if((stock[0] >= 100) && (stock[1] >= 300)) {
+                model.produitFini[0]++;
+                stock[0] -= 100;
+                stock[1] -= 300;
+            }
+            if((stock[1] >= 100) && (stock[2] >= 250)) {
+                model.produitFini[1]++;
+                stock[1] -= 100;
+                stock[2] -= 250;
+            }
+            if((stock[0] >= 50) && (stock[3] >= 300)) {
+                model.produitFini[2]++;
+                stock[0] -= 50;
+                stock[3] -= 300;
+            }
+            if((stock[3] >= 150) && (stock[4] >= 300)) {
+                model.produitFini[0]++;
+                stock[3] -= 100;
+                stock[4] -= 300;
+            }
         }
     }
     
